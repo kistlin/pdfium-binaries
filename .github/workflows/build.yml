@@ -31,8 +31,8 @@ on:
         description: Target (CPU arm|arm64|x64|x86|wasm)
         type: string
         required: true
-      target_libc:
-        description: Target libc (empty string or "musl")
+      target_environment:
+        description: Target environment (device|catalyst|musl|simulator)
         type: string
         required: false
         default: ''
@@ -40,7 +40,7 @@ on:
         description: Emscripten SDK
         type: string
         required: false
-        default: 3.1.34
+        default: 3.1.72
     outputs:
       artifact:
         description: "The name of the artifact"
@@ -50,7 +50,7 @@ jobs:
   build:
     outputs:
       artifact: ${{ steps.init.outputs.artifact }}
-    runs-on: ${{ (inputs.target_os == 'ios' || inputs.target_os == 'mac') && 'macos-latest' || inputs.target_os == 'win' && 'windows-2022' || 'ubuntu-20.04' }}
+    runs-on: ${{ (inputs.target_os == 'ios' || inputs.target_os == 'mac') && 'macos-latest' || inputs.target_os == 'win' && 'windows-2022' || 'ubuntu-24.04' }}
     steps:
       - name: Initialize
         id: init
@@ -59,18 +59,12 @@ jobs:
           ARTIFACT="pdfium"
           [ "${{inputs.enable_v8}}" == "true" ] && ARTIFACT="$ARTIFACT-v8"
           ARTIFACT="$ARTIFACT-${{inputs.target_os}}"
-          [ "${{inputs.target_libc}}" != "" ] && ARTIFACT="$ARTIFACT-${{inputs.target_libc}}"
+          [ "${{inputs.target_environment}}" != "" ] && ARTIFACT="$ARTIFACT-${{inputs.target_environment}}"
           [ "${{inputs.target_os}}" != "${{inputs.target_cpu}}" ] && ARTIFACT="$ARTIFACT-${{inputs.target_cpu}}"
           [ "${{inputs.is_debug}}" == "true" ] && ARTIFACT="$ARTIFACT-debug"
           echo "artifact=$ARTIFACT" >> $GITHUB_OUTPUT
       - name: Checkout this repo
         uses: actions/checkout@v4
-      - name: Workaround for libpcre2 i386 # https://github.com/actions/virtual-environments/issues/4589#issuecomment-1100899313
-        if: inputs.target_os == 'android'
-        run: |
-          sudo rm -f /etc/apt/sources.list.d/microsoft-prod.list
-          sudo apt-get update -qq
-          sudo apt-get install -yqq --allow-downgrades libpcre2-8-0/focal libpcre2-16-0/focal libpcre2-32-0/focal libpcre2-posix2/focal
       - name: Set environment variables
         run: |
           cat >>$GITHUB_ENV <<END
@@ -78,7 +72,7 @@ jobs:
           PDFium_IS_DEBUG=${{ inputs.is_debug }}
           PDFium_TARGET_CPU=${{ inputs.target_cpu }}
           PDFium_TARGET_OS=${{ inputs.target_os }}
-          PDFium_TARGET_LIBC=${{ inputs.target_libc }}
+          PDFium_TARGET_ENVIRONMENT=${{ inputs.target_environment }}
           PDFium_ENABLE_V8=${{ inputs.enable_v8 }}
           PDFium_VERSION=${{ inputs.version }}
           EMSDK_VERSION=${{ inputs.emsdk_version }}

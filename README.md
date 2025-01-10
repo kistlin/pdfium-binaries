@@ -25,13 +25,14 @@ Here are the download links for latest release:
 <table>
   <tr>
     <th>OS</th>
+    <th>Env</th>
     <th>CPU</th>
     <th>PDFium</th>
     <th>PDFium V8</th>
   </tr>
 
   <tr>
-    <td rowspan="4">Android</td>
+    <td rowspan="4" colspan=2>Android</td>
     <td>arm</td>
     <td><a href="https://github.com/bblanchon/pdfium-binaries/releases/latest/download/pdfium-android-arm.tgz">pdfium-android-arm.tgz</a></td>
     <td><a href="https://github.com/bblanchon/pdfium-binaries/releases/latest/download/pdfium-v8-android-arm.tgz">pdfium-v8-android-arm.tgz</a></td>
@@ -53,19 +54,40 @@ Here are the download links for latest release:
   </tr>
 
   <tr>
-    <td rowspan="2">iOS</td>
+    <td rowspan="5">iOS</td>
+    <td rowspan="2">catalyst</td>
     <td>arm64</td>
-    <td><a href="https://github.com/bblanchon/pdfium-binaries/releases/latest/download/pdfium-ios-arm64.tgz">pdfium-ios-arm64.tgz</a></td>
-    <td><a href="https://github.com/bblanchon/pdfium-binaries/releases/latest/download/pdfium-v8-ios-arm64.tgz">pdfium-v8-ios-arm64.tgz</a></td>
+    <td><a href="https://github.com/bblanchon/pdfium-binaries/releases/latest/download/pdfium-ios-catalyst-arm64.tgz">pdfium-ios-catalyst-arm64.tgz</a></td>
+    <td><a href="https://github.com/bblanchon/pdfium-binaries/releases/latest/download/pdfium-v8-ios-catalyst-arm64.tgz">pdfium-v8-ios-catalyst-arm64.tgz</a></td>
   </tr>
   <tr>
     <td>x64</td>
-    <td><a href="https://github.com/bblanchon/pdfium-binaries/releases/latest/download/pdfium-ios-x64.tgz">pdfium-ios-x64.tgz</a></td>
-    <td><a href="https://github.com/bblanchon/pdfium-binaries/releases/latest/download/pdfium-v8-ios-x64.tgz">pdfium-v8-ios-x64.tgz</a></td>
+    <td><a href="https://github.com/bblanchon/pdfium-binaries/releases/latest/download/pdfium-ios-catalyst-x64.tgz">pdfium-ios-catalyst-x64.tgz</a></td>
+    <td><a href="https://github.com/bblanchon/pdfium-binaries/releases/latest/download/pdfium-v8-ios-catalyst-x64.tgz">pdfium-v8-ios-catalyst-x64.tgz</a></td>
   </tr>
 
   <tr>
-    <td rowspan="4">Linux</td>
+    <td>device</td>
+    <td>arm64</td>
+    <td><a href="https://github.com/bblanchon/pdfium-binaries/releases/latest/download/pdfium-ios-device-arm64.tgz">pdfium-ios-device-arm64.tgz</a></td>
+    <td><a href="https://github.com/bblanchon/pdfium-binaries/releases/latest/download/pdfium-v8-ios-device-arm64.tgz">pdfium-v8-ios-device-arm64.tgz</a></td>
+  </tr>
+
+  <tr>
+    <td rowspan="2">simulator</td>
+    <td>arm64</td>
+    <td><a href="https://github.com/bblanchon/pdfium-binaries/releases/latest/download/pdfium-ios-simulator-arm64.tgz">pdfium-ios-simulator-arm64.tgz</a></td>
+    <td><a href="https://github.com/bblanchon/pdfium-binaries/releases/latest/download/pdfium-v8-ios-simulator-arm64.tgz">pdfium-v8-ios-simulator-arm64.tgz</a></td>
+  </tr>
+  <tr>
+    <td>x64</td>
+    <td><a href="https://github.com/bblanchon/pdfium-binaries/releases/latest/download/pdfium-ios-simulator-x64.tgz">pdfium-ios-simulator-x64.tgz</a></td>
+    <td><a href="https://github.com/bblanchon/pdfium-binaries/releases/latest/download/pdfium-v8-ios-simulator-x64.tgz">pdfium-v8-ios-simulator-x64.tgz</a></td>
+  </tr>
+
+  <tr>
+    <td rowspan="7">Linux</td>
+    <td rowspan="4">glibc</td>
     <td>arm</td>
     <td><a href="https://github.com/bblanchon/pdfium-binaries/releases/latest/download/pdfium-linux-arm.tgz">pdfium-linux-arm.tgz</a></td>
     <td><a href="https://github.com/bblanchon/pdfium-binaries/releases/latest/download/pdfium-v8-linux-arm.tgz">pdfium-v8-linux-arm.tgz</a></td>
@@ -87,7 +109,7 @@ Here are the download links for latest release:
   </tr>
 
   <tr>
-    <td rowspan="3">Linux<br>musl</td>
+    <td rowspan="3">musl</td>
     <td>arm64</td>
     <td><a href="https://github.com/bblanchon/pdfium-binaries/releases/latest/download/pdfium-linux-musl-arm64.tgz">pdfium-linux-musl-arm64.tgz</a></td>
     <td><a href="https://github.com/bblanchon/pdfium-binaries/releases/latest/download/pdfium-v8-linux-musl-arm64.tgz">pdfium-v8-linux-musl-arm64.tgz</a></td>
@@ -104,7 +126,7 @@ Here are the download links for latest release:
   </tr>
 
   <tr>
-    <td rowspan="3">macOS</td>
+    <td rowspan="3" colspan="2">macOS</td>
     <td>arm64</td>
     <td><a href="https://github.com/bblanchon/pdfium-binaries/releases/latest/download/pdfium-mac-arm64.tgz">pdfium-mac-arm64.tgz</a></td>
     <td><a href="https://github.com/bblanchon/pdfium-binaries/releases/latest/download/pdfium-v8-mac-arm64.tgz">pdfium-v8-mac-arm64.tgz</a></td>
@@ -121,7 +143,7 @@ Here are the download links for latest release:
   </tr>
 
   <tr>
-    <td rowspan="3">Windows</td>
+    <td rowspan="3" colspan="2">Windows</td>
     <td>arm64</td>
     <td><a href="https://github.com/bblanchon/pdfium-binaries/releases/latest/download/pdfium-win-arm64.tgz">pdfium-win-arm64.tgz</a></td>
     <td><a href="https://github.com/bblanchon/pdfium-binaries/releases/latest/download/pdfium-v8-win-arm64.tgz">pdfium-v8-win-arm64.tgz</a></td>
@@ -138,7 +160,7 @@ Here are the download links for latest release:
   </tr>
 
   <tr>
-    <td colspan="2">WebAssembly<sup>1</sup></td>
+    <td colspan="3">WebAssembly<sup>1</sup></td>
     <td><a href="https://github.com/bblanchon/pdfium-binaries/releases/latest/download/pdfium-wasm.tgz">pdfium-wasm.tgz</a></td>
     <td>not supported</td>
   </tr>
@@ -239,6 +261,7 @@ The following projects use (or recommend using) our PDFium builds:
 | [go-pdfium][go-pdfium]   | Go       | Go wrapper around PDFium with helper functions for various methods like image rendering and text extraction |
 | [libvips][libvips]       | C        | A performant image processing library                                                                       |
 | [PDFium RS][pdfium_rs]   | Rust     | Rust wrapper around PDFium                                                                                  |
+| [pdfium-vfp][pdfium-vfp] | VFP      | PDF Viewer component for Visual FoxPro                                                                      |
 | [PDFiumCore][pdfiumcore] | C#       | .NET Standard P/Invoke bindings for PDFium                                                                  |
 | [PdfiumLib][pdfiumlib]   | Pascal   | An interface to libpdfium for Delphi                                                                        |
 | [PdfLibCore][pdflibcore] | C#       | A fast PDF editing and reading library for modern .NET Core applications                                    |
@@ -305,6 +328,8 @@ The following projects use (or recommend using) our PDFium builds:
   </tbody>
 </table
 
+[pdfium-vfp]:
+https://github.com/dmitriychunikhin/pdfium-vfp
 [dart_pdf]: https://github.com/DavBfr/dart_pdf
 [pdfx]: https://github.com/scerio/packages.flutter/tree/main/packages/pdfx
 [go-pdfium]: https://github.com/klippa-app/go-pdfium

@@ -2,10 +2,11 @@
 
 OS=${PDFium_TARGET_OS:?}
 CPU="${PDFium_TARGET_CPU:?}"
-TARGET_LIBC="${PDFium_TARGET_LIBC:-default}"
+TARGET_ENVIRONMENT="${PDFium_TARGET_ENVIRONMENT:-}"
 SOURCE_DIR="$PWD/example"
 CMAKE_ARGS=()
 CAN_RUN_ON_HOST=false
+EXAMPLE="./example"
 
 export PDFium_DIR="$PWD/staging"
 
@@ -35,17 +36,30 @@ case "$OS" in
     case "$CPU" in
       arm64)
         ARCH="arm64"
-        SDK="iphoneos"
         ;;
       x64)
         ARCH="x86_64"
+        ;;
+    esac
+    case "$TARGET_ENVIRONMENT" in
+      catalyst)
+        SDK="macosx"
+        EXAMPLE="example.app/Contents/MacOS/example"
+        ;;
+      device)
+        SDK="iphoneos"
+        EXAMPLE="example.app/example"
+        ;;
+      simulator)
         SDK="iphonesimulator"
+        EXAMPLE="example.app/example"
         ;;
     esac
     CMAKE_ARGS+=(
       -D CMAKE_SYSTEM_NAME="iOS"
       -D CMAKE_OSX_SYSROOT="$SDK"
       -D CMAKE_OSX_ARCHITECTURES="$ARCH"
+      -D CMAKE_OSX_DEPLOYMENT_TARGET="14.0"
       # https://discourse.cmake.org/t/find-package-stops-working-when-cmake-system-name-ios/4609/7
       -D CMAKE_FIND_ROOT_PATH_MODE_PACKAGE="BOTH"
       -D CMAKE_FIND_ROOT_PATH_MODE_INCLUDE="BOTH"
@@ -56,7 +70,7 @@ case "$OS" in
   linux)
     case "$CPU" in
       arm)
-        if [ "$TARGET_LIBC" == "musl" ]; then
+        if [ "$TARGET_ENVIRONMENT" == "musl" ]; then
           PREFIX="arm-linux-musleabihf-"
         else
           PREFIX="arm-linux-gnueabihf-"
@@ -64,7 +78,7 @@ case "$OS" in
         fi
         ;;
       arm64)
-        if [ "$TARGET_LIBC" == "musl" ]; then
+        if [ "$TARGET_ENVIRONMENT" == "musl" ]; then
           PREFIX="aarch64-linux-musl-"
         else
           PREFIX="aarch64-linux-gnu-"
@@ -72,7 +86,7 @@ case "$OS" in
         fi
         ;;
       x86)
-        if [ "$TARGET_LIBC" == "musl" ]; then
+        if [ "$TARGET_ENVIRONMENT" == "musl" ]; then
           PREFIX="i686-linux-musl-"
         else
           CAN_RUN_ON_HOST=true
@@ -83,7 +97,7 @@ case "$OS" in
         )
         ;;
       x64)
-        if [ "$TARGET_LIBC" == "musl" ]; then
+        if [ "$TARGET_ENVIRONMENT" == "musl" ]; then
           PREFIX="x86_64-linux-musl-"
         else
           CAN_RUN_ON_HOST=true
@@ -129,6 +143,7 @@ case "$OS" in
       -G "Visual Studio 17 2022"
       -A "$ARCH"
     )
+    EXAMPLE="Debug/example.exe"
     ;;
 
   wasm)
@@ -144,12 +159,6 @@ pushd build
 
 cmake "${CMAKE_ARGS[@]}"
 cmake --build .
-
-if [ "$OS" == "win" ]; then
-  EXAMPLE="Debug/example.exe"
-else
-  EXAMPLE="./example"
-fi
 
 file $EXAMPLE
 
